@@ -1,10 +1,9 @@
 package com.vazquez.rest.Models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-import java.util.List;
+
 
 
 public class JsonFile {
@@ -44,10 +43,19 @@ public class JsonFile {
 
     public static class WeatherList
     {
+
+        private Long dt;
         private WeatherMain main;
         private WeatherA []weather;
         private String dt_txt;
 
+        public Long getDt() {
+            return dt;
+        }
+
+        public void setDt(Long dt) {
+            this.dt = dt;
+        }
         public WeatherMain getMain() {
             return main;
         }
@@ -137,6 +145,16 @@ public class JsonFile {
         private Long id;
         private String main;
         private String description;
+        private String icon;
+
+
+        public String getIcon() {
+            return icon;
+        }
+
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
         public Long getId() {
             return id;
         }

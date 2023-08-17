@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RestController
@@ -111,13 +115,25 @@ public class RestSpringBootController {
             System.out.println(key + ": " + value);
         }
 
+        long epochTimeSeconds = Long.parseLong(keyValues.get("dt"));
+
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(epochTimeSeconds), ZoneId.systemDefault());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a");
+        String formattedTime = dateTime.format(formatter);
+
+        System.out.println(formattedTime);
+
+
+
         weatherCityInfo.setId(cityId);
         weatherCityInfo.setCityName(city.getName());
         weatherCityInfo.setTemp(keyValues.get("temp"));
         weatherCityInfo.setFeelsLike(keyValues.get("feels_like"));
         weatherCityInfo.setWeather(keyValues.get("main"));
         weatherCityInfo.setWeatherDescription(keyValues.get("description"));
-        weatherCityInfo.setDate(keyValues.get("dt_txt"));
+        weatherCityInfo.setDate(formattedTime);
+
 
         weatherRepo.save(weatherCityInfo);
 
@@ -125,7 +141,9 @@ public class RestSpringBootController {
 
 
     @GetMapping(value = "/weather/{cityId}")
-    public WeatherCityInfo getWeather(@PathVariable long cityId) {
+    public WeatherCityInfo getWeather(@PathVariable long cityId) throws JsonProcessingException {
+
+        createWeather(cityId);
         return weatherRepo.findById(cityId).get();
     }
 
