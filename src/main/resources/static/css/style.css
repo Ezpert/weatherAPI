@@ -1,0 +1,227 @@
+
+p
+{
+    margin: 0;
+    font-family: Roboto, Arial;
+    color: whitesmoke;
+}
+
+
+
+html {
+    background: url("../images/background3.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh
+}
+
+.middle
+{
+    position: relative;
+    width: 30%; /* This makes the box take up 80% of the screen's width */
+    height: 80%; /* This makes the box take up 80% of the screen's height */
+    background: transparent; /* This sets the box's background color to light gray */
+    border: none;
+    backdrop-filter: blur(15px);
+    border-radius: 50px;
+    box-shadow: 0 4px 10px -10px whitesmoke;
+
+}
+
+.header
+{
+
+    display: flex;
+    justify-content: space-around;
+    height: 70px;
+    box-shadow: 0 4px 10px -10px whitesmoke;
+
+
+}
+.search-icon
+{
+    width: 35px;
+    margin-top: 20px;
+}
+
+
+.search-bar
+{
+    margin-left: 0px;
+    background: none;
+    border: none;
+    font-family: Roboto, Arial;
+
+
+    font-size: 25px;
+    color: whitesmoke;
+
+    padding: 0px 0px 0px 20px
+
+}
+.search-bar:focus
+{
+    outline: none;
+}
+
+.search-bar::placeholder
+{
+    color: whitesmoke;
+    font-family: Roboto, Arial;
+    font-weight: 600;
+}
+
+.search-button
+{
+
+    background: transparent;
+    border: none;
+    color: whitesmoke;
+    font-family: Roboto, Arial;
+    font-size: 20px;
+    font-weight: 700;
+    padding-top: 5px;
+    cursor: pointer;
+
+}
+
+.icon-div
+{
+
+    display: flex;
+    justify-content: center;
+
+
+
+}
+
+.icon-weather
+{
+
+    margin-top: 20px;
+    width: 300px;
+
+}
+
+
+
+
+
+.information-div
+{
+    text-align: center;
+    padding: 0px 0px 25px 0px;
+    line-height: 70px;
+    box-shadow: 0 4px 10px -10px  whitesmoke;
+    margin-bottom: 10px;
+
+}
+
+
+.temp-main-text
+{
+    font-size: 80px;
+    font-weight: 700;
+}
+.weather-main-text
+{
+    font-size: 30px;
+}
+
+.location-icon-div
+{
+    align-items: center;
+}
+.location-icon
+{
+    width: 20px;
+    margin-top: 25px;
+
+}
+.location-text-main
+{
+    font-size: 25px;
+    margin-left: 10px;
+}
+
+
+
+.location-div
+{
+    display: flex;
+    justify-content: center;
+
+
+}
+
+
+
+
+.footer
+{
+    display: flex;
+    height: 80px;
+}
+
+.feels-like
+{
+    width: 283px;
+    display: flex;
+    justify-content: center;
+    padding-top: 22px;
+}
+.feels-info
+{
+    display: flex;
+
+
+}
+
+.feels-like-icon
+{
+    width: 40px;
+    margin: 5px 15px 0px 0px;
+}
+
+
+
+.humidity
+{
+    width: 283px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 5px 0px 0px;
+
+
+}
+
+
+
+.humidity-icon
+{
+    width: 35px;
+    margin: 8px 15px 0px 0px;
+
+}
+
+.feels-like-text,
+.humidity-text
+{
+    font-size: 15px;
+}
+
+.humidity-percent,
+.feels-like-temp
+{
+    font-size: 25px;
+    font-weight: 700;
+}
