@@ -11,8 +11,6 @@ import com.vazquez.rest.Repo.CityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,17 +26,18 @@ public class RestSpringBootController {
 
     @Autowired
     private WeatherRepo weatherRepo;
-
-
-
-
-
     ObjectMapper objectMapper = new ObjectMapper();
+
+
+
+
+
 
 
     @GetMapping("/cities")
     public List<City> getCities()
     {
+        //returns all of the cities currently
         return cityRepo.findAll();
     }
 

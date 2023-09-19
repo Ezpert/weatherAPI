@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Styled Button</title>
+
+<!--  IF YOU HAVE AN ERROR WITH THE CSS MAKE SURE THE type is text/css/ exactly like that with the
+    slashes. It didn't wanna load because of that small thing bruh
+-->
+  <link th:rel="stylesheet" type="text/css"  th:href="@{/css/style.css}" />
+
+</head>
+<body>
+<div class="container">
+
+  <div class="middle">
+
+    <div class="header">
+      <div class="search-icon-div"> <img class="search-icon" th:src="@{/images/search.svg}"> </div>
+      <input class="search-bar" type="text" placeholder="">
+
+      <button class="search-button">Search</button>
+
+    </div>
+    <div class="icon-div">
+      <img class="icon-weather" src="/Icons/4102326_cloud_sun_sunny_weather_icon.png">
+
+
+
+    </div>
+    <div class="information-div">
+
+      <p class="temp-main-text">
+        100° F
+      </p>
+
+      <p class="weather-main-text">Broken Clouds</p>
+
+      <div class="location-div">
+
+        <div class="location-icon-div">
+
+          <img class="location-icon" src="/Icons/iconfinder-icon.svg">
+        </div>
+
+        <p class="location-text-main">Alamo, United States</p>
+      </div>
+
+
+
+    </div>
+
+    <div class="footer">
+
+
+
+      <div class="feels-like">
+        <div class="feels-icon-div">
+
+          <img class="feels-like-icon" src="/Icons/temperature-control.svg">
+
+        </div>
+        <div>
+          <p class="feels-like-temp">110 F°</p>
+          <p class="feels-like-text">Feels like</p>
+
+        </div>
+
+
+
+      </div>
+      <div class="humidity">
+        <div>
+          <img class="humidity-icon" th:src="@{/images/your-image.jpg}">
+        </div>
+
+        <div>
+          <p class="humidity-percent">
+            84%
+          </p>
+          <p class="humidity-text">
+            Humidity
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+</body>
+</html>
