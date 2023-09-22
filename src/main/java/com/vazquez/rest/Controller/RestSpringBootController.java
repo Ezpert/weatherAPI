@@ -233,6 +233,7 @@ public class RestSpringBootController {
         weatherCityInfo.setFeelsLike(keyValues.get("feels_like"));
         weatherCityInfo.setHumidity(keyValues.get("humidity"));
         weatherCityInfo.setWeather(keyValues.get("main"));
+        weatherCityInfo.setIcon(keyValues.get("icon"));
         weatherCityInfo.setWeatherDescription(keyValues.get("description"));
         weatherCityInfo.setDate(formattedTime);
 

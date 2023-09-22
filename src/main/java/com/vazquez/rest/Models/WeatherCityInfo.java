@@ -15,6 +15,7 @@ public class WeatherCityInfo {
     @Column
     private String cityName;
 
+
     @Column
     private String temp;
 
@@ -33,6 +34,17 @@ public class WeatherCityInfo {
 
     @Column
     private String humidity;
+
+
+    @Column
+    private String icon;
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public String getHumidity() {
         return humidity;

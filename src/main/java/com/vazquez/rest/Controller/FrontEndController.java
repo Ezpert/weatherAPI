@@ -72,7 +72,7 @@ RestSpringBootController rest;
         }
 
 
-
+       // String iconUrl =  "https://openweathermap.org/img/wn/" + weatherCityInfo.getIcon() + ".png";
 
 
 
@@ -84,8 +84,6 @@ RestSpringBootController rest;
         model.addAttribute("cityN", citym.getName());
         model.addAttribute("cityS", cityN.getState());
         model.addAttribute("cityC", cityN.getCountry());
-
-
 
 
         return "index";
