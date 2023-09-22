@@ -4,16 +4,22 @@ p
     margin: 0;
     font-family: Roboto, Arial;
     color: whitesmoke;
+    text-shadow: 1px 1px 2px black;
+
+
 }
 
 
 
 html {
-    background: url("../images/background3.jpg") no-repeat center center fixed;
+    background: linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%);
+
+
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    height: 1000px;
 }
 
 .container
@@ -21,25 +27,29 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh
+    height: 100vh;
+    background: none;
 }
+
+
+
 
 .middle
 {
     position: relative;
-    width: 30%; /* This makes the box take up 80% of the screen's width */
-    height: 80%; /* This makes the box take up 80% of the screen's height */
-    background: transparent; /* This sets the box's background color to light gray */
+    width: 35%; /* This makes the box take up 80% of the screen's width */
+    height: 92%; /* This makes the box take up 80% of the screen's height */
+    background: transparent ;
+    /* This sets the box's background color to light gray */
     border: none;
+
+
+
     backdrop-filter: blur(15px);
     border-radius: 50px;
-    box-shadow: 0 4px 10px -10px whitesmoke;
 
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+    box-shadow: 0px 0px 8px -5px whitesmoke;
+
 }
 
 .header
@@ -48,7 +58,7 @@ input[type="number"]::-webkit-outer-spin-button {
     display: flex;
     justify-content: space-around;
     height: 70px;
-    box-shadow: 0 4px 10px -10px whitesmoke;
+    box-shadow: 0 4px 10px -10px white;
 
 
 }
@@ -56,28 +66,21 @@ input[type="number"]::-webkit-outer-spin-button {
 {
     width: 35px;
     margin-top: 20px;
+    margin-left: 20px;
 }
 
-form
-{
-    padding: 0px 0px 0px 0px;
-}
 
 .search-bar
 {
-    padding-top: 5px;
     background: none;
     border: none;
     font-family: Roboto, Arial;
 
-    height: 68px;
-
-    width: 300px;
 
     font-size: 25px;
     color: whitesmoke;
 
-
+    padding: 5px 0px 0px 20px
 
 }
 .search-bar:focus
@@ -88,7 +91,7 @@ form
 .search-bar::placeholder
 {
     color: whitesmoke;
-    font-family: Roboto, Arial;
+    font-family: Roboto, Arial, serif;
     font-weight: 600;
 }
 
@@ -96,15 +99,16 @@ form
 {
 
     background: transparent;
-    border: none;
-    color: whitesmoke;
+    margin: 0;
     font-family: Roboto, Arial;
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px black;
+    border: none;
     font-size: 20px;
     font-weight: 700;
-    height: 50px;
-    padding: 0px 0px 0px 0px;
+    padding: 5px 20px 0px 0px;
     cursor: pointer;
-    margin-left: 40px;
+
 
 }
 
@@ -113,6 +117,7 @@ form
 
     display: flex;
     justify-content: center;
+
 
 
 
@@ -135,7 +140,7 @@ form
     text-align: center;
     padding: 0px 0px 25px 0px;
     line-height: 70px;
-    box-shadow: 0 4px 10px -10px  whitesmoke;
+    box-shadow: 0 4px 10px -10px  white;
     margin-bottom: 10px;
 
 }
