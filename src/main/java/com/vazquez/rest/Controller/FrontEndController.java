@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -36,14 +37,26 @@ RestSpringBootController rest;
 
 
     @GetMapping("/search")
-    public String searchCity(@RequestParam("zip-code") int zip, Model model) throws JsonProcessingException {
+    public String searchCity(@RequestParam("zip-code") String input, Model model) throws JsonProcessingException {
+
+        if(input.isEmpty())
+        {
+            return "empty-form";
+        }
+
+    try {
+        int zip = Integer.parseInt(input);
+
+        if (zip == 0) {
+            return handleZeroFormSubmission();
+        }
+
 
         City citym = new City();
         WeatherCityInfo weatherCityInfo;
         try {
             citym = cityRepo.findByZip(String.valueOf(zip)).get();
-        }catch(NoSuchElementException e)
-        {
+        } catch (NoSuchElementException e) {
             rest.saveCity(zip);
             citym = cityRepo.findByZip(String.valueOf(zip)).get();
 
@@ -51,10 +64,6 @@ RestSpringBootController rest;
 
         weatherCityInfo = rest.getWeather(citym.getId());
 
-
-
-
-        System.out.println("Lat: " + (int)citym.getLat() + ", Lon: " + (int)citym.getLon());
 
         CityName cityN = rest.getState(citym.getName(), citym.getLat(), citym.getLon());
 
@@ -66,15 +75,12 @@ RestSpringBootController rest;
         System.out.println("---------------------------");
 
         String str = weatherCityInfo.getTemp();
-        if (str.contains("."))
-        {
+        if (str.contains(".")) {
             str = str.substring(0, str.indexOf('.'));
         }
 
 
-       // String iconUrl =  "https://openweathermap.org/img/wn/" + weatherCityInfo.getIcon() + ".png";
-
-
+        // String iconUrl =  "https://openweathermap.org/img/wn/" + weatherCityInfo.getIcon() + ".png";
 
 
         model.addAttribute("tempInfo", rest.removeD(weatherCityInfo.getTemp()));
@@ -88,6 +94,23 @@ RestSpringBootController rest;
 
         return "index";
 
+    }catch(NumberFormatException e)
+    {
+        return "invalid-form";
+    }catch(HttpClientErrorException e)
+    {
+        return "invalid-form";
+    }
+
+    }
+
+
+    @GetMapping("/zero-form")
+    private String handleZeroFormSubmission() {
+
+
+
+        return "zero-form";
     }
 
 
