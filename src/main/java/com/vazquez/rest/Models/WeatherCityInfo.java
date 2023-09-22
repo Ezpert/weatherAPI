@@ -31,6 +31,17 @@ public class WeatherCityInfo {
     private String date;
 
 
+    @Column
+    private String humidity;
+
+    public String getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(String humidity) {
+        this.humidity = humidity;
+    }
+
     public String getCityName() {
         return cityName;
     }

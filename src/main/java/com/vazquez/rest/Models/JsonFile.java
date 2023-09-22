@@ -96,12 +96,22 @@ public class JsonFile {
         private double feels_like;
         private double temp_min;
         private double temp_max;
+        private int humidity;
 
 
 
 
 
 
+
+
+        public int getHumidity() {
+            return humidity;
+        }
+
+        public void setHumidity(int humidity) {
+            this.humidity = humidity;
+        }
         public double getTemp() {
             return temp;
         }

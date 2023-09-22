@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vazquez.rest.Models.City;
+import com.vazquez.rest.Models.CityName;
 import com.vazquez.rest.Models.JsonFile;
 import com.vazquez.rest.Models.WeatherCityInfo;
 import com.vazquez.rest.Repo.WeatherRepo;
@@ -11,6 +12,8 @@ import com.vazquez.rest.Repo.CityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -20,9 +23,11 @@ import java.util.*;
 @RestController
 public class RestSpringBootController {
 
-
     @Autowired
     private CityRepo cityRepo;
+
+
+
 
     @Autowired
     private WeatherRepo weatherRepo;
@@ -42,24 +47,120 @@ public class RestSpringBootController {
     }
 
 
+//    //Eventually fix this so we could add cities not just by zip codes but also by names
+
+//    @PostMapping("/saveName/{cityName}/{stateX}")
+//    public CityName saveCityByName(@PathVariable String cityName, @PathVariable String stateX) throws JsonProcessingException {
+//
+//        String url = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=5&appid=c051ee13146872970e23ec2fa286f339";
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        CityName[] cityNames = restTemplate.getForObject(url, CityName[].class);
+//        CityName firstCity = new CityName();
+//
+//        System.out.println(stateX);
+//
+//        for (CityName city : cityNames) {
+//
+//            if(city.getState().equals(stateX))
+//            {
+//                firstCity.setName(city.getName());
+//                firstCity.setState(city.getState());
+//                firstCity.setCountry(city.getCountry());
+//                firstCity.setLat(city.getLat());
+//                firstCity.setLon(city.getLon());
+//
+//                return firstCity;
+//
+//            }
+//            System.out.println("Name: " + city.getName());
+//            System.out.println("State: " + city.getState());
+//            System.out.println("Country: " + city.getCountry());
+//            System.out.println("Latitude: " + city.getLat());
+//            System.out.println("Longitude: " + city.getLon());
+//            System.out.println("---------------------------");
+//        }
+//
+//        return firstCity;
+//    }
+
+    public CityName getState(String cityName, double lat, double lon) throws JsonProcessingException {
+
+        String url = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=5&appid=c051ee13146872970e23ec2fa286f339";
+        RestTemplate restTemplate = new RestTemplate();
+
+        CityName[] cityNames = restTemplate.getForObject(url, CityName[].class);
+        CityName firstCity = new CityName();
+
+
+
+
+
+        for (CityName city : cityNames) {
+
+            if((int)city.getLat() == (int)lat && (int)city.getLon() == (int)lon)
+            {
+                firstCity.setName(city.getName());
+                firstCity.setState(city.getState());
+                firstCity.setCountry(city.getCountry());
+                firstCity.setLat(city.getLat());
+                firstCity.setLon(city.getLon());
+
+                return firstCity;
+
+            }
+            System.out.println("Name: " + city.getName());
+            System.out.println("State: " + city.getState());
+            System.out.println("Country: " + city.getCountry());
+            System.out.println("Latitude: " + city.getLat());
+            System.out.println("Longitude: " + city.getLon());
+            System.out.println("---------------------------");
+        }
+
+        return firstCity;
+    }
+
+
+
+
+    //Save city by zip code
     @PostMapping("/save/{zip}")
     public String saveCity(@PathVariable int zip) throws JsonProcessingException {
 
         String url = ("https://api.openweathermap.org/geo/1.0/zip?zip=" + zip + "&appid=c051ee13146872970e23ec2fa286f339");
         RestTemplate restTemplate = new RestTemplate();
 
+
+
         City city1 = restTemplate.getForObject(url, City.class);
 
 
 
-        assert city1 != null;
+        if (cityRepo != null && cityRepo.existsByName(city1.getName())) {
+            boolean cityExists = cityRepo.existsByName(city1.getName());
+            // perform repository operations
+        if(cityExists)
+        {
+            return "Duplicate City...";
+        }
+
+
         cityRepo.save(city1);
         createWeather(city1.getId());
-
         return "Saved....";
+        }
 
+        cityRepo.save(city1);
+
+
+        return "Null";
 
     }
+
+
+
+
+
 
     @DeleteMapping("/delete/{cityId}")
     public String deleteCity(@PathVariable long cityId) {
@@ -91,6 +192,7 @@ public class RestSpringBootController {
 
     public void createWeather(long cityId) throws JsonProcessingException
     {
+
         City city = cityRepo.findById(cityId).get();
         WeatherCityInfo weatherCityInfo = new WeatherCityInfo();
 
@@ -129,6 +231,7 @@ public class RestSpringBootController {
         weatherCityInfo.setCityName(city.getName());
         weatherCityInfo.setTemp(keyValues.get("temp"));
         weatherCityInfo.setFeelsLike(keyValues.get("feels_like"));
+        weatherCityInfo.setHumidity(keyValues.get("humidity"));
         weatherCityInfo.setWeather(keyValues.get("main"));
         weatherCityInfo.setWeatherDescription(keyValues.get("description"));
         weatherCityInfo.setDate(formattedTime);
@@ -145,6 +248,35 @@ public class RestSpringBootController {
         createWeather(cityId);
         return weatherRepo.findById(cityId).get();
     }
+
+
+    public String capatalize(String str)
+    {
+        String[] words = str.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                result.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1)).append(" ");
+            }
+        }
+
+        String capitalizedString = result.toString().trim();
+
+        return capitalizedString;
+
+
+    }
+    public String removeD(String str)
+    {
+
+        if (str.contains("."))
+        {
+            str = str.substring(0, str.indexOf('.'));
+        }
+        return str;
+    }
+
 
 
 
@@ -173,8 +305,6 @@ public class RestSpringBootController {
             }
         }
     }
-
-
 
 
 
