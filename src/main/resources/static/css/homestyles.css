@@ -1,0 +1,181 @@
+html {
+    /*background: url("../images/background3.jpg") no-repeat center center fixed;*/
+    background: linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+.container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh
+}
+.main-box
+{
+    position: relative;
+    width: 40%; /* This makes the box take up 80% of the screen's width */
+    height: 55%; /* This makes the box take up 80% of the screen's height */
+    background: transparent; /* This sets the box's background color to light gray */
+    border: none;
+    backdrop-filter: blur(15px);
+    border-radius: 50px;
+    box-shadow: 0px 0px 8px -5px whitesmoke;
+    min-width: 754px;
+    max-width: 754px;
+    max-height: 521px;
+    min-height: 506px;
+
+}
+
+.header-div
+{
+    padding: 0px 0px 0px 30px;
+    box-shadow: 0 4px 10px -10px whitesmoke;
+    display: flex;
+    align-items: center;
+}
+
+.weather-icon
+{
+    width: 70px;
+
+}
+.header-text
+{
+    padding: 0px 0px 0px 10px;
+
+    font-family: Roboto, Arial;
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px black;
+}
+
+.zip-code-div
+{
+    display: flex;
+    justify-content: center;
+    padding: 40px 0px 0px 0px;
+    align-items: center;
+
+}
+
+
+
+
+
+.icon-div
+{
+
+    margin: 0px 20px 0px 0px;
+
+}
+
+.zip-icon
+{
+    width: 90px;
+
+}
+
+.zip-enter
+{
+    margin-top: 25px;
+    font-size: 30px;
+    background: none;
+    border: none;
+    box-shadow: 0 4px 10px -10px whitesmoke;
+    color: whitesmoke;
+    width: 230px;
+    text-align: center;
+    text-shadow: 1px 1px 2px black;
+}
+.zip-enter::placeholder
+{
+    color: whitesmoke;
+    font-family: Roboto, Arial;
+    text-shadow: 1px 1px 2px black;
+    text-align: center;
+
+}
+.zip-enter:focus
+{
+    outline: none;
+}
+
+.search-button
+{
+
+    background: transparent;
+    border: none;
+    color: whitesmoke;
+    font-family: Roboto, Arial;
+    font-size: 20px;
+    font-weight: 700;
+    height: 50px;
+    padding: 0px 0px 0px 0px;
+    cursor: pointer;
+    margin-left: 20px;
+    text-shadow: 1px 1px 2px black;
+
+
+
+}
+
+
+
+.middle-div
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.mid-text
+{
+    margin-top: 40px;
+    Font-size: 30px;
+    color: whitesmoke;
+    font-family: Roboto, Arial;
+    text-shadow: 1px 1px 2px black;
+}
+
+.line
+{
+    box-shadow: 0px 2px 2px -2px whitesmoke;
+    width: 300px;
+    height: 60px;
+}
+.footer
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.city-icon
+{
+    width: 95px;
+}
+
+.home2-button
+{
+    margin: 0px 0px 0px 0px;
+    /*  padding: 30px 90px 30px 90px; */
+    font-size: 25px;
+    background: none;
+    border: none;
+    box-shadow: 0 4px 10px -10px whitesmoke;
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px black;
+    cursor: pointer;
+
+}

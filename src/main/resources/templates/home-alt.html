@@ -2,7 +2,7 @@
 
 <head>
 
-    <link th:rel="stylesheet" type="text/css"  th:href="@{/css/homestyles.css}" />
+    <link th:rel="stylesheet" type="text/css"  th:href="@{/css/home-altstyles.css}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -26,12 +26,14 @@
 
             <div class="icon-div">
 
-                <img class="zip-icon" th:src="@{/images/iconfinder-icon.svg}">
+                <img class="city-icon" th:src="@{/images/city-state.svg}">
             </div>
-            <form action="/search" method="get">
+            <form action="/search-alt" method="get">
 
-                <input autocomplete="off" class="zip-enter" type="number" name="zip-code" placeholder="Enter Zip Code">
+                <input autocomplete="off"class="city-enter" type="text" name="cityName" placeholder="Enter City Name">
+                <input autocomplete="off" class="state-enter" type="text"name=cityState placeholder="Enter State">
                 <button class="search-button">Search</button>
+
             </form>
 
         </div>
@@ -43,13 +45,12 @@
         </div>
         <div class="footer">
             <div>
-                <img class="city-icon" th:src="@{/images/cityloc.svg}">
+                <img class="zip-icon" th:src="@{/images/iconfinder-icon.svg}">
             </div>
+            <form action="/" method="get">
 
-            <form action="/home-alt" method="get">
 
-
-            <button class="home2-button">Search by City Name / State</button>
+                <button class="home2-button">Search by Zip</button>
 
 
             </form>

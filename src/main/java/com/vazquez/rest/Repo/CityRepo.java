@@ -13,7 +13,7 @@ public interface CityRepo extends JpaRepository<City, Long> {
 
     Optional<City> findByZip(String zip);
     boolean existsByName(String city_name);
-    boolean existsByZip(String zip);
+    Optional<City> findByName(String city_name);
 
 
 }

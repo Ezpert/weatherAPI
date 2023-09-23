@@ -3,10 +3,7 @@ package com.vazquez.rest.Controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vazquez.rest.Models.City;
-import com.vazquez.rest.Models.CityName;
-import com.vazquez.rest.Models.JsonFile;
-import com.vazquez.rest.Models.WeatherCityInfo;
+import com.vazquez.rest.Models.*;
 import com.vazquez.rest.Repo.WeatherRepo;
 import com.vazquez.rest.Repo.CityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,42 +44,42 @@ public class RestSpringBootController {
     }
 
 
-//    //Eventually fix this so we could add cities not just by zip codes but also by names
+    //Eventually fix this so we could add cities not just by zip codes but also by names
 
-//    @PostMapping("/saveName/{cityName}/{stateX}")
-//    public CityName saveCityByName(@PathVariable String cityName, @PathVariable String stateX) throws JsonProcessingException {
-//
-//        String url = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=5&appid=c051ee13146872970e23ec2fa286f339";
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        CityName[] cityNames = restTemplate.getForObject(url, CityName[].class);
-//        CityName firstCity = new CityName();
-//
-//        System.out.println(stateX);
-//
-//        for (CityName city : cityNames) {
-//
-//            if(city.getState().equals(stateX))
-//            {
-//                firstCity.setName(city.getName());
-//                firstCity.setState(city.getState());
-//                firstCity.setCountry(city.getCountry());
-//                firstCity.setLat(city.getLat());
-//                firstCity.setLon(city.getLon());
-//
-//                return firstCity;
-//
-//            }
-//            System.out.println("Name: " + city.getName());
-//            System.out.println("State: " + city.getState());
-//            System.out.println("Country: " + city.getCountry());
-//            System.out.println("Latitude: " + city.getLat());
-//            System.out.println("Longitude: " + city.getLon());
-//            System.out.println("---------------------------");
-//        }
-//
-//        return firstCity;
-//    }
+    @PostMapping("/saveName/{cityName}/{stateX}")
+    public CityName getCityName(@PathVariable String cityName, @PathVariable String stateX) throws JsonProcessingException {
+
+        String url = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=5&appid=c051ee13146872970e23ec2fa286f339";
+        RestTemplate restTemplate = new RestTemplate();
+
+        CityName[] cityNames = restTemplate.getForObject(url, CityName[].class);
+        CityName firstCity = new CityName();
+
+        System.out.println(stateX);
+
+        for (CityName city : cityNames) {
+
+            if(city.getState().equals(stateX))
+            {
+                firstCity.setName(city.getName());
+                firstCity.setState(city.getState());
+                firstCity.setCountry(city.getCountry());
+                firstCity.setLat(city.getLat());
+                firstCity.setLon(city.getLon());
+
+                return firstCity;
+
+            }
+            System.out.println("Name: " + city.getName());
+            System.out.println("State: " + city.getState());
+            System.out.println("Country: " + city.getCountry());
+            System.out.println("Latitude: " + city.getLat());
+            System.out.println("Longitude: " + city.getLon());
+            System.out.println("---------------------------");
+        }
+
+        return firstCity;
+    }
 
     public CityName getState(String cityName, double lat, double lon) throws JsonProcessingException {
 
@@ -119,6 +116,8 @@ public class RestSpringBootController {
 
         return firstCity;
     }
+
+
 
 
 

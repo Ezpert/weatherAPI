@@ -6,22 +6,13 @@ import com.vazquez.rest.Models.CityName;
 import com.vazquez.rest.Models.WeatherCityInfo;
 import com.vazquez.rest.Repo.CityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.function.Function;
 
 @Controller
 public class FrontEndController {
@@ -33,6 +24,55 @@ public class FrontEndController {
 
 @Autowired
 RestSpringBootController rest;
+
+
+
+
+    @GetMapping("/search-alt")
+    public String getCityName(@RequestParam("cityName") String city_N, @RequestParam("cityState") String cityS, Model model) throws JsonProcessingException {
+        if(city_N.isEmpty() || cityS.isEmpty())
+        {
+            return "empty-form";
+        }
+        try
+        {
+
+
+
+        CityName cityN = rest.getCityName(city_N, cityS);
+
+
+        WeatherCityInfo weatherCityInfo;
+
+        City citym;
+
+        try {
+             citym = cityRepo.findByName(cityN.getName()).get();
+        }catch(NoSuchElementException e)
+        {
+            return "invalid-form";
+        }
+        weatherCityInfo = rest.getWeather(citym.getId());
+
+
+        model.addAttribute("tempInfo", rest.removeD(weatherCityInfo.getTemp()));
+        model.addAttribute("weatherInfo", rest.capatalize(weatherCityInfo.getWeatherDescription()));
+        model.addAttribute("hum", weatherCityInfo.getHumidity());
+        model.addAttribute("feels", rest.removeD(weatherCityInfo.getFeelsLike()));
+        model.addAttribute("cityN", citym.getName());
+        model.addAttribute("cityS", cityN.getState());
+        model.addAttribute("cityC", cityN.getCountry());
+        }catch(HttpClientErrorException e)
+        {
+            return "invalid-form";
+        }
+
+
+
+
+
+        return "index";
+    }
 
 
 
@@ -52,7 +92,7 @@ RestSpringBootController rest;
         }
 
 
-        City citym = new City();
+        City citym;
         WeatherCityInfo weatherCityInfo;
         try {
             citym = cityRepo.findByZip(String.valueOf(zip)).get();
@@ -74,10 +114,6 @@ RestSpringBootController rest;
         System.out.println("Longitude: " + cityN.getLon());
         System.out.println("---------------------------");
 
-        String str = weatherCityInfo.getTemp();
-        if (str.contains(".")) {
-            str = str.substring(0, str.indexOf('.'));
-        }
 
 
         // String iconUrl =  "https://openweathermap.org/img/wn/" + weatherCityInfo.getIcon() + ".png";
@@ -115,8 +151,17 @@ RestSpringBootController rest;
 
 
 
+    @GetMapping("/home-alt")
+    private String changeHome()
+    {
+
+        return "home-alt";
+
+    }
+
+
     @GetMapping("/")
-    public String index(Model model)
+    public String index()
     {
 
         return "home";
