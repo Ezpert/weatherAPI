@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -50,9 +52,17 @@ RestSpringBootController rest;
              citym = cityRepo.findByName(cityN.getName()).get();
         }catch(NoSuchElementException e)
         {
-            return "invalid-form";
+            Integer zip = Integer.parseInt(rest.getZip(cityN.getLat(), cityN.getLon()));
+            rest.saveCity(zip);
+            System.out.println("Saved!!");
+            citym = cityRepo.findByZip(String.valueOf(zip)).get();
+
+
         }
+
+
         weatherCityInfo = rest.getWeather(citym.getId());
+
 
 
         model.addAttribute("tempInfo", rest.removeD(weatherCityInfo.getTemp()));
@@ -62,7 +72,7 @@ RestSpringBootController rest;
         model.addAttribute("cityN", citym.getName());
         model.addAttribute("cityS", cityN.getState());
         model.addAttribute("cityC", cityN.getCountry());
-        }catch(HttpClientErrorException e)
+        }catch(HttpClientErrorException | NoSuchAlgorithmException | KeyManagementException e)
         {
             return "invalid-form";
         }

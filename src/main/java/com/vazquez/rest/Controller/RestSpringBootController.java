@@ -9,8 +9,9 @@ import com.vazquez.rest.Repo.CityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -29,6 +30,7 @@ public class RestSpringBootController {
     @Autowired
     private WeatherRepo weatherRepo;
     ObjectMapper objectMapper = new ObjectMapper();
+
 
 
 
@@ -240,6 +242,40 @@ public class RestSpringBootController {
         weatherRepo.save(weatherCityInfo);
 
     }
+
+    @GetMapping("/getZip/{lat}/{lon}")
+    public String getZip(@PathVariable double lat, @PathVariable double lon) throws NoSuchAlgorithmException, KeyManagementException, JsonProcessingException {
+        DecimalFormat decimalFormat = new DecimalFormat("#.######"); // Format to 6 decimal places
+
+        String formattedLat = decimalFormat.format(lat);
+        String formattedLon = decimalFormat.format(lon);
+        System.out.println(formattedLon + " "  + formattedLat);
+
+        String url = ("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + formattedLat + "," + formattedLon + "&result_type=postal_code&key=AIzaSyAX6-S2FTlBB_m50RZxA8F-kUJLj85AlX4");
+
+        RestTemplate rest = new RestTemplate();
+
+        PostalCodes.PostalList postalCodes = rest.getForObject(url, PostalCodes.PostalList.class);
+
+        if (postalCodes != null && postalCodes.getResults() != null && postalCodes.getResults().length > 0) {
+            PostalCodes.AddressList firstAddress = postalCodes.getResults()[0];
+            PostalCodes.PCodes[] addressComponents = firstAddress.getAddress_components();
+            if (addressComponents != null && addressComponents.length > 0) {
+                String longName = addressComponents[0].getLong_name();
+                String shortName = addressComponents[0].getShort_name();
+                System.out.println("long_name: " + longName);
+                System.out.println("short_name: " + shortName);
+                return shortName;
+            } else {
+                System.out.println("No address components found.");
+            }
+        } else {
+            System.out.println("Failed to retrieve postal codes.");
+        }
+
+        return "Done";
+    }
+
 
 
     @GetMapping(value = "/weather/{cityId}")
