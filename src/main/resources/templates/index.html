@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Styled Button</title>
+  <link rel="icon" href="/images/sun.png">
+  <title th:text="${cityN + (cityS != null ? ', ' + cityS : '') }"> </title>
 
 <!--  IF YOU HAVE AN ERROR WITH THE CSS MAKE SURE THE type is text/css/ exactly like that with the
     slashes. It didn't wanna load because of that small thing bruh
@@ -11,6 +12,28 @@
 </head>
 <body>
 <div class="container">
+
+  <div class="top-header">
+    <div class="top-div">
+
+      <form action="/" method="get">
+
+
+      <button class="home-button">
+        <div class="arrow-icon-div">
+          <img class="back-arrow-icon" th:src="@{/images/left-arrow.svg}">
+
+        </div>
+        <div class="home-text-div">
+
+          <p>Back to Home Page</p>
+        </div>
+      </button>
+
+      </form>
+
+    </div>
+  </div>
 
   <div class="middle">
 
@@ -26,12 +49,14 @@
 
 
     </div>
+
+    <div class="center-div">
     <div class="icon-div">
-      <img class="icon-weather" th:src="@{/images/4102326_cloud_sun_sunny_weather_icon.png}">
+      <img class="icon-weather" th:src="@{'/images/' + ${imageName} + '.png'}">
 <!--      <img class="icon-weather" th:src="${iconUrl}" alt="Weather Icon">-->
 
 
-    </div>
+    </div >
     <div class="information-div">
 
       <p class="temp-main-text">
@@ -50,13 +75,15 @@
         </div>
 
         <p class="location-text-main">
-          <span th:text="${cityN}"></span>, <span th:text="${cityS}"></span>
+          <span th:text="${cityN}"></span><span th:text="${cityS != null ? ', ' + cityS : ''}"></span>
         </p>
       </div>
 
 
 
     </div>
+
+      </div>
 
     <div class="footer">
 

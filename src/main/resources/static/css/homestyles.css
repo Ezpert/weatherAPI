@@ -6,6 +6,9 @@ html {
     -o-background-size: cover;
     background-size: cover;
 }
+
+
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -125,8 +128,24 @@ input[type="number"]::-webkit-outer-spin-button {
     cursor: pointer;
     margin-left: 20px;
     text-shadow: 1px 1px 2px black;
+    transition: opacity 0.15s;
 
 
+
+}
+
+.search-button:hover
+
+{
+
+    opacity: 0.7;
+
+
+}
+
+.search-button:active
+{
+    opacity: 0.4;
 
 }
 
@@ -169,13 +188,28 @@ input[type="number"]::-webkit-outer-spin-button {
 .home2-button
 {
     margin: 0px 0px 0px 0px;
-    /*  padding: 30px 90px 30px 90px; */
-    font-size: 25px;
+    padding: 0px 15px 3px 15px;
+    font-size: 30px;
     background: none;
     border: none;
-    box-shadow: 0 4px 10px -10px whitesmoke;
     color: whitesmoke;
     text-shadow: 1px 1px 2px black;
     cursor: pointer;
+    transition: opacity 0.15s, box-shadow 0.35s;
 
 }
+
+.home2-button:hover
+
+{
+    box-shadow: 0 4px 10px -10px whitesmoke;
+
+
+}
+
+.home2-button:active
+{
+    opacity: 0.7;
+
+}
+

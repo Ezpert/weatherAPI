@@ -131,8 +131,26 @@ html {
     cursor: pointer;
     margin-left: 10px;
     text-shadow: 1px 1px 2px black;
+    transition: opacity 0.15s;
 
 }
+
+.search-button:hover
+
+{
+
+    opacity: 0.7;
+
+
+}
+
+.search-button:active
+{
+    opacity: 0.4;
+
+}
+
+
 
 
 .middle-div
@@ -172,13 +190,28 @@ html {
 .home2-button
 {
     margin: 0px 0px 0px 0px;
-    padding: 0px 20px 0px 20px;
+    padding: 0px 15px 3px 15px;
     font-size: 30px;
     background: none;
     border: none;
-    box-shadow: 0 4px 10px -10px whitesmoke;
     color: whitesmoke;
     text-shadow: 1px 1px 2px black;
     cursor: pointer;
+    transition: opacity 0.15s, box-shadow 0.35s;
 
 }
+
+.home2-button:hover
+
+{
+    box-shadow: 0 4px 10px -10px whitesmoke;
+
+
+}
+
+.home2-button:active
+{
+    opacity: 0.7;
+
+}
+

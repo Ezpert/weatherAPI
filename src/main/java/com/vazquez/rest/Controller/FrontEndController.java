@@ -101,34 +101,30 @@ RestSpringBootController rest;
             return handleZeroFormSubmission();
         }
 
-
         City citym;
         WeatherCityInfo weatherCityInfo;
         try {
             citym = cityRepo.findByZip(String.valueOf(zip)).get();
         } catch (NoSuchElementException e) {
-            rest.saveCity(zip);
-            citym = cityRepo.findByZip(String.valueOf(zip)).get();
+
+            try {
+                rest.saveCity(zip);
+                citym = cityRepo.findByZip(String.valueOf(zip)).get();
+            }catch(NoSuchElementException f)
+            {
+                return "invalid-form";
+            }
 
         }
 
         weatherCityInfo = rest.getWeather(citym.getId());
-
-
         CityName cityN = rest.getState(citym.getName(), citym.getLat(), citym.getLon());
-
-        System.out.println("Name: " + cityN.getName());
-        System.out.println("State: " + cityN.getState());
-        System.out.println("Country: " + cityN.getCountry());
-        System.out.println("Latitude: " + cityN.getLat());
-        System.out.println("Longitude: " + cityN.getLon());
-        System.out.println("---------------------------");
+        String weatherDesc  = rest.getWeatherType(weatherCityInfo.getWeatherDescription(), weatherCityInfo.getDate());
 
 
 
-        // String iconUrl =  "https://openweathermap.org/img/wn/" + weatherCityInfo.getIcon() + ".png";
 
-
+        model.addAttribute("imageName", weatherDesc);
         model.addAttribute("tempInfo", rest.removeD(weatherCityInfo.getTemp()));
         model.addAttribute("weatherInfo", rest.capatalize(weatherCityInfo.getWeatherDescription()));
         model.addAttribute("hum", weatherCityInfo.getHumidity());

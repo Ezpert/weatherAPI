@@ -26,6 +26,61 @@ html {
     height: 100vh
 }
 
+.top-header
+{
+    position: fixed;
+    top: 10px;
+    left: 20px;
+
+}
+
+
+
+.arrow-icon-div,
+.home-text-div
+{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.home-text-div
+{
+
+    width: 200px;
+}
+
+.back-arrow-icon
+{
+    width: 40px;
+    fill: black;
+    filter: drop-shadow(1px 1px 1px black);
+    margin-top: 1px;
+}
+
+
+
+.home-button
+{
+    color: whitesmoke;
+    font-family: Roboto, Arial;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: transparent; /* This sets the box's background color to light gray */
+    border: none;
+    backdrop-filter: blur(15px);
+    justify-content: center;
+    transition: opacity 0.15s;
+
+}
+
+
+
 .middle
 {
     position: relative;
@@ -60,6 +115,8 @@ input[type="number"]::-webkit-outer-spin-button {
 {
     width: 35px;
     margin-top: 20px;
+    fill: black;
+    filter: drop-shadow(1px 1px 1px black);
 }
 
 form
@@ -73,28 +130,24 @@ form
     background: none;
     border: none;
     font-family: Roboto, Arial;
-
     height: 68px;
-
     width: 300px;
-
+    text-shadow: 1px 1px 2px black;
     font-size: 25px;
     color: whitesmoke;
 
 
 
 }
-.search-bar:focus
+
+.search-bar:focus,
+.home-button:focus,
+.search-button:focus
 {
     outline: none;
 }
 
-.search-bar::placeholder
-{
-    color: whitesmoke;
-    font-family: Roboto, Arial;
-    font-weight: 600;
-}
+
 
 .search-button
 {
@@ -104,13 +157,32 @@ form
     color: whitesmoke;
     font-family: Roboto, Arial;
     font-size: 20px;
+    text-shadow: 1px 1px 2px black;
     font-weight: 700;
     height: 50px;
     padding: 0px 0px 0px 0px;
     cursor: pointer;
     margin-left: 40px;
+    transition: opacity 0.15s;
 
 }
+.search-button:hover,
+.home-button:hover
+{
+
+    opacity: 0.7;
+
+
+}
+
+.search-button:active,
+.home-button:active
+{
+    opacity: 0.4;
+
+}
+
+
 
 .icon-div
 {

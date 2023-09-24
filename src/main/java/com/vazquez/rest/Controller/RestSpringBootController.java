@@ -12,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -25,22 +27,13 @@ public class RestSpringBootController {
     private CityRepo cityRepo;
 
 
-
-
     @Autowired
     private WeatherRepo weatherRepo;
     ObjectMapper objectMapper = new ObjectMapper();
 
 
-
-
-
-
-
-
     @GetMapping("/cities")
-    public List<City> getCities()
-    {
+    public List<City> getCities() {
         //returns all of the cities currently
         return cityRepo.findAll();
     }
@@ -61,8 +54,7 @@ public class RestSpringBootController {
 
         for (CityName city : cityNames) {
 
-            if(city.getState().equals(stateX))
-            {
+            if (city.getState().equals(stateX)) {
                 firstCity.setName(city.getName());
                 firstCity.setState(city.getState());
                 firstCity.setCountry(city.getCountry());
@@ -72,12 +64,7 @@ public class RestSpringBootController {
                 return firstCity;
 
             }
-            System.out.println("Name: " + city.getName());
-            System.out.println("State: " + city.getState());
-            System.out.println("Country: " + city.getCountry());
-            System.out.println("Latitude: " + city.getLat());
-            System.out.println("Longitude: " + city.getLon());
-            System.out.println("---------------------------");
+            printCityName(city);
         }
 
         return firstCity;
@@ -92,13 +79,9 @@ public class RestSpringBootController {
         CityName firstCity = new CityName();
 
 
-
-
-
         for (CityName city : cityNames) {
 
-            if((int)city.getLat() == (int)lat && (int)city.getLon() == (int)lon)
-            {
+            if ((int) city.getLat() == (int) lat && (int) city.getLon() == (int) lon) {
                 firstCity.setName(city.getName());
                 firstCity.setState(city.getState());
                 firstCity.setCountry(city.getCountry());
@@ -108,20 +91,11 @@ public class RestSpringBootController {
                 return firstCity;
 
             }
-            System.out.println("Name: " + city.getName());
-            System.out.println("State: " + city.getState());
-            System.out.println("Country: " + city.getCountry());
-            System.out.println("Latitude: " + city.getLat());
-            System.out.println("Longitude: " + city.getLon());
-            System.out.println("---------------------------");
+            printCityName(city);
         }
 
         return firstCity;
     }
-
-
-
-
 
 
     //Save city by zip code
@@ -132,23 +106,20 @@ public class RestSpringBootController {
         RestTemplate restTemplate = new RestTemplate();
 
 
-
         City city1 = restTemplate.getForObject(url, City.class);
-
 
 
         if (cityRepo != null && cityRepo.existsByName(city1.getName())) {
             boolean cityExists = cityRepo.existsByName(city1.getName());
             // perform repository operations
-        if(cityExists)
-        {
-            return "Duplicate City...";
-        }
+            if (cityExists) {
+                return "Duplicate City...";
+            }
 
 
-        cityRepo.save(city1);
-        createWeather(city1.getId());
-        return "Saved....";
+            cityRepo.save(city1);
+            createWeather(city1.getId());
+            return "Saved....";
         }
 
         cityRepo.save(city1);
@@ -159,10 +130,6 @@ public class RestSpringBootController {
     }
 
 
-
-
-
-
     @DeleteMapping("/delete/{cityId}")
     public String deleteCity(@PathVariable long cityId) {
 
@@ -171,8 +138,7 @@ public class RestSpringBootController {
             try {
                 WeatherCityInfo deleteInfo = weatherRepo.findById(cityId).get();
                 weatherRepo.delete(deleteInfo);
-            } catch(NoSuchElementException e)
-            {
+            } catch (NoSuchElementException e) {
                 e.printStackTrace();
 
             }
@@ -191,8 +157,7 @@ public class RestSpringBootController {
     }
 
 
-    public void createWeather(long cityId) throws JsonProcessingException
-    {
+    public void createWeather(long cityId) throws JsonProcessingException {
 
         City city = cityRepo.findById(cityId).get();
         WeatherCityInfo weatherCityInfo = new WeatherCityInfo();
@@ -227,7 +192,6 @@ public class RestSpringBootController {
         System.out.println(formattedTime);
 
 
-
         weatherCityInfo.setId(cityId);
         weatherCityInfo.setCityName(city.getName());
         weatherCityInfo.setTemp(keyValues.get("temp"));
@@ -249,7 +213,7 @@ public class RestSpringBootController {
 
         String formattedLat = decimalFormat.format(lat);
         String formattedLon = decimalFormat.format(lon);
-        System.out.println(formattedLon + " "  + formattedLat);
+        System.out.println(formattedLon + " " + formattedLat);
 
         String url = ("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + formattedLat + "," + formattedLon + "&result_type=postal_code&key=AIzaSyAX6-S2FTlBB_m50RZxA8F-kUJLj85AlX4");
 
@@ -277,7 +241,6 @@ public class RestSpringBootController {
     }
 
 
-
     @GetMapping(value = "/weather/{cityId}")
     public WeatherCityInfo getWeather(@PathVariable long cityId) throws JsonProcessingException {
 
@@ -286,8 +249,7 @@ public class RestSpringBootController {
     }
 
 
-    public String capatalize(String str)
-    {
+    public String capatalize(String str) {
         String[] words = str.split(" ");
         StringBuilder result = new StringBuilder();
 
@@ -303,14 +265,89 @@ public class RestSpringBootController {
 
 
     }
-    public String removeD(String str)
-    {
 
-        if (str.contains("."))
-        {
+    public String removeD(String str) {
+
+        if (str.contains(".")) {
             str = str.substring(0, str.indexOf('.'));
         }
         return str;
+    }
+
+
+    public String getWeatherType(String str, String date) {
+
+        switch (str) {
+            case "clear sky": {
+
+                return isDay(date) ? "sun": "moon2";
+
+            }
+            case "few clouds", "scattered clouds", "broken clouds", "overcast clouds": {
+
+                return isDay(date) ? "suncloud":"mooncloudy";
+
+
+            }
+            case "moderate rain", "light rain", "extreme rain", "very heavy rain", "heavy intensity rain": {
+                return "scatteredrain";
+
+
+            }
+            case "light intensity shower rain", "shower rain", "heavy intensity shower rain", "ragged shower rain", "light intensity drizzle", "drizzle rain", "drizzle", "heavy intensity drizzle", "light intensity drizzle rain", "heavy intensity drizzle rain", "shower rain and drizzle", "heavy shower rain and drizzle", "shower drizzle": {
+                return "rain";
+
+            }
+            case "thunderstorm with heavy rain", "light thunderstorm", "heavy thunderstorm", "ragged thunderstorm", "thunderstorm with light drizzle", "thunderstorm with drizzle", "thunderstorm with heavy drizzle", "thunderstorm", "thunderstorm with light rain", "thunderstorm with rain": {
+                return "thunderstorm";
+
+            }
+            case "snow", "freezing rain", "light snow", "heavy snow", "sleet", "light shower sleet", "shower sleet", "light rain and snow", "rain and snow", "light shower snow", "shower snow", "heavy shower snow": {
+                return "snow";
+
+            }
+            case "mist", "smoke", "haze", "sand/dust whirls", "fog", "sand", "dust", "volcanic ash", "squalls", "tornado": {
+                return "mist";
+
+            }
+
+            default:
+                return "ERROR";
+
+        }
+    }
+
+    public static boolean isDay(String dateTimeString) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a");
+
+        try {
+            Date dateTime = inputFormat.parse(dateTimeString);
+            String timeOnly = outputFormat.format(dateTime);
+            Date nightStart = inputFormat.parse("06/01/2000 06:00 PM");
+            Date nightEnd = inputFormat.parse("06/01/2000 06:00 AM");
+
+            if (dateTime.after(nightStart) || dateTime.before(nightEnd)) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public void printCityName(CityName cityN)
+    {
+        System.out.println("Name: " + cityN.getName());
+        System.out.println("State: " + cityN.getState());
+        System.out.println("Country: " + cityN.getCountry());
+        System.out.println("Latitude: " + cityN.getLat());
+        System.out.println("Longitude: " + cityN.getLon());
+        System.out.println("---------------------------");
+
     }
 
 
