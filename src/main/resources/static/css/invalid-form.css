@@ -1,0 +1,135 @@
+p
+{
+    margin: 0;
+    font-family: Roboto, Arial;
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px black;
+}
+
+
+
+
+html {
+    /*background: url("../images/background3.jpg") no-repeat center center fixed;*/
+    background: linear-gradient(109.6deg, rgb(41, 125, 182) 3.6%, rgb(77, 58, 151) 51%, rgb(103, 55, 115) 92.9%);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh
+}
+.main-box
+{
+    position: relative;
+    width: 30%; /* This makes the box take up 80% of the screen's width */
+    height: 60%; /* This makes the box take up 80% of the screen's height */
+    background: transparent; /* This sets the box's background color to light gray */
+    border: none;
+    backdrop-filter: blur(15px);
+    border-radius: 50px;
+    box-shadow: 0px 0px 8px -5px whitesmoke;
+    min-width: 754px;
+    max-width: 754px;
+    max-height: 521px;
+    min-height: 506px;
+    min-width: 566px;
+    max-height: 744px;
+}
+
+
+
+.header-div
+{
+    padding: 0px 0px 0px 30px;
+    box-shadow: 0 4px 10px -10px whitesmoke;
+    display: flex;
+    align-items: center;
+}
+
+.weather-icon
+{
+    width: 50px;
+
+}
+.header-text
+{
+    padding: 0px 0px 0px 10px;
+
+    font-family: Roboto, Arial;
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px black;
+}
+
+
+
+
+.mid-div
+{
+    display: flex;
+    margin: 30px 0px 40px 0px;
+    justify-content: center;
+}
+
+
+.info-div
+{
+    margin: 0px 0px 0px 0px;
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.error-message
+{
+    margin-bottom: 15px;
+}
+
+.home-button
+{
+    color: whitesmoke;
+    font-family: Roboto, Arial;
+    font-size: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px black;
+    display: flex;
+    background: transparent; /* This sets the box's background color to light gray */
+    border: none;
+    transition: opacity 0.15s, box-shadow 0.35s;
+    margin: 0px 0px 0px 55px;
+
+}
+
+
+.home-button:hover
+{
+
+    box-shadow: 0 4px 10px -10px whitesmoke;
+
+
+}
+.home-button:active
+{
+    opacity: 0.7;
+
+}
+.home-button:hover,
+.home-button:focus
+{
+    outline: none;
+}
+
+
+
+.error-image
+{
+    width: 300px;
+}
+

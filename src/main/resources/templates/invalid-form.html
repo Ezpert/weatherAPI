@@ -1,13 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
+    <link rel="icon" href="/images/error.png">
+    <title> Information not found</title>
+
+    <link th:rel="stylesheet" type="text/css"  th:href="@{/css/invalid-form.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+
+
 </head>
+
+
 <body>
 
-hello world!
+<div class="container">
+    <div class="main-box">
+        <div class="header-div">
+            <div class="weather-icon-div">
+                <img class="weather-icon" th:src="@{/images/error.png}">
+            </div>
+            <h1 class="header-text">404 Error!</h1>
+        </div>
+
+        <div class="middle">
+
+
+
+            <div class="mid-div">
+                <img class="error-image" th:src="@{/images/rainerror.png}">
+            </div>
+
+
+            <div class="info-div">
+
+                <form action="/" method="get">
+
+                    <p class="error-message">Oops! We couldn't find the information you are looking for.</p>
+                    <button class="home-button">Go back to the Homepage</button>
+
+                </form>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+</div>
 
 
 </body>
+
+
 </html>
+
+

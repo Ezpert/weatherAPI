@@ -34,7 +34,7 @@ RestSpringBootController rest;
     public String getCityName(@RequestParam("cityName") String city_N, @RequestParam("cityState") String cityS, Model model) throws JsonProcessingException {
         if(city_N.isEmpty() || cityS.isEmpty())
         {
-            return "empty-form";
+            return "invalid-form";
         }
         try
         {
@@ -52,19 +52,25 @@ RestSpringBootController rest;
              citym = cityRepo.findByName(cityN.getName()).get();
         }catch(NoSuchElementException e)
         {
-            Integer zip = Integer.parseInt(rest.getZip(cityN.getLat(), cityN.getLon()));
-            rest.saveCity(zip);
-            System.out.println("Saved!!");
-            citym = cityRepo.findByZip(String.valueOf(zip)).get();
 
+            try {
+                Integer zip = Integer.parseInt(rest.getZip(cityN.getLat(), cityN.getLon()));
+                rest.saveCity(zip);
+                System.out.println("Saved!!");
+                citym = cityRepo.findByZip(String.valueOf(zip)).get();
+            }catch(NumberFormatException f)
+            {
+                return "invalid-form";
+            }
 
         }
 
 
         weatherCityInfo = rest.getWeather(citym.getId());
+        String weatherDesc  = rest.getWeatherType(weatherCityInfo.getWeatherDescription(), weatherCityInfo.getDate());
 
 
-
+        model.addAttribute("imageName", weatherDesc);
         model.addAttribute("tempInfo", rest.removeD(weatherCityInfo.getTemp()));
         model.addAttribute("weatherInfo", rest.capatalize(weatherCityInfo.getWeatherDescription()));
         model.addAttribute("hum", weatherCityInfo.getHumidity());
@@ -72,7 +78,7 @@ RestSpringBootController rest;
         model.addAttribute("cityN", citym.getName());
         model.addAttribute("cityS", cityN.getState());
         model.addAttribute("cityC", cityN.getCountry());
-        }catch(HttpClientErrorException | NoSuchAlgorithmException | KeyManagementException e)
+        }catch(HttpClientErrorException | NoSuchAlgorithmException | KeyManagementException | NullPointerException e)
         {
             return "invalid-form";
         }
@@ -91,7 +97,7 @@ RestSpringBootController rest;
 
         if(input.isEmpty())
         {
-            return "empty-form";
+            return "invalid-form";
         }
 
     try {
@@ -152,7 +158,7 @@ RestSpringBootController rest;
 
 
 
-        return "zero-form";
+        return "invalid-form";
     }
 
 
