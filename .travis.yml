@@ -2,8 +2,14 @@ language: java
 dist: focal
 os: linux
 jdk: openjdk20
+env:
+  global:
+    - CC_TEST_REPORTER_ID=b154ed8bed15d5f0453d1b1a8d3d04d9b1d3962d71942a9ac25bea04e36bd019
 
 script:
   - mvn clean install
 before_install:
   - chmod +x mvnw
+
+after_script:
+    - vendor/bin/test-reporter
