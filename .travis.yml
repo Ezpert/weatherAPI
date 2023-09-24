@@ -1,0 +1,6 @@
+language: java
+jdk:
+  - openjdk20
+
+script:
+  - mvn clean install
