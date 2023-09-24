@@ -1,5 +1,6 @@
 language: java
-sudo: true
+dist: focal
+os: linux
 jdk: openjdk20
 
 script:
