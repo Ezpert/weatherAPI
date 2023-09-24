@@ -142,10 +142,7 @@ RestSpringBootController rest;
 
         return "index";
 
-    }catch(NumberFormatException e)
-    {
-        return "invalid-form";
-    }catch(HttpClientErrorException e)
+    }catch(NumberFormatException | HttpClientErrorException e)
     {
         return "invalid-form";
     }
